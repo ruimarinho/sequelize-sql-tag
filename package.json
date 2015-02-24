@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/seegno/sequelize-sql-tag.git"
   },
-  "description": "A sequelize plugin for [sql-tag](https://www.npmjs.com/sql-tag]",
+  "description": "A sequelize plugin for `sql-tag`",
   "keywords": [
     "es6",
     "multiline",
