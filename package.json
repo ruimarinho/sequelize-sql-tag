@@ -12,6 +12,7 @@
     "plugin",
     "sequelize",
     "sql",
+    "sql-tag",
     "string",
     "strings",
     "tagged",
