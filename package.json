@@ -1,0 +1,43 @@
+{
+  "name": "sequelize-sql-tag",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seegno/sequelize-sql-tag.git"
+  },
+  "description": "A sequelize plugin for [sql-tag](https://www.npmjs.com/sql-tag]",
+  "keywords": [
+    "es6",
+    "multiline",
+    "plugin",
+    "sequelize",
+    "sql",
+    "string",
+    "strings",
+    "tagged",
+    "template"
+  ],
+  "author": {
+    "name": "Rui Marinho",
+    "email": "rui.marinho@seegno.com",
+    "url": "https://github.com/ruimarinho"
+  },
+  "homepage": "https://github.com/seegno/sequelize-sql-tag",
+  "bugs": {
+    "url": "https://github.com/seegno/sequelize-sql-tag/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "changelog": "./node_modules/.bin/github-changes -o seegno -r sequelize-sql-tag -a --only-pulls --use-commit-body --title 'Changelog' --date-format '/ YYYY-MM-DD'",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha test/*_test.js --require should --reporter spec"
+  },
+  "devDependencies": {
+    "github-changes": "0.0.16",
+    "mocha": "^2.1.0",
+    "should": "^5.0.1",
+    "sqlite3": "^3.0.5"
+  },
+  "peerDependencies": {
+    "sequelize": ">= 2.0.0 < 3"
+  }
+}
