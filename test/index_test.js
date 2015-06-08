@@ -20,24 +20,7 @@ describe('sequelize-sql-tag', function() {
   });
 
   describe('normal sql queries', function() {
-    it('should continue supporting an sql `query` with `callee` and `options`', function() {
-      return sequelize.sync().then(function() {
-        return User.create({
-          username: 'foo'
-        });
-      }).then(function() {
-        return sequelize.query('SELECT * FROM "Users" WHERE username = ?', User, {
-          replacements: ['foo'],
-          type: sequelize.QueryTypes.SELECT
-        })
-      }).then(function(results) {
-        results.should.have.length(1);
-        results[0].should.be.an.instanceOf(User.DAO);
-        results[0].username.should.equal('foo');
-      });
-    });
-
-    it('should continue supporting an sql `query` without `callee` but with `options`', function() {
+    it('should continue supporting an sql query', function() {
       return sequelize.sync().then(function() {
         return User.create({
           username: 'foo'
@@ -46,7 +29,7 @@ describe('sequelize-sql-tag', function() {
         return sequelize.query('SELECT * FROM "Users" WHERE username = ?', {
           replacements: ['foo'],
           type: sequelize.QueryTypes.SELECT
-        })
+        });
       }).then(function(results) {
         results.should.have.length(1);
         results[0].username.should.equal('foo');
@@ -55,26 +38,7 @@ describe('sequelize-sql-tag', function() {
   });
 
   describe('tagged sql queries', function() {
-    it('should support a tagged sql query with `callee`', function() {
-      return sequelize.sync().then(function() {
-        return User.create({
-          username: 'foo'
-        });
-      }).then(function() {
-        return sequelize.query({
-          query: 'SELECT * FROM "Users" WHERE username = ?',
-          values: ['foo']
-        }, User, {
-          type: sequelize.QueryTypes.SELECT
-        })
-      }).then(function(results) {
-        results.should.have.length(1);
-        results[0].should.be.an.instanceOf(User.DAO);
-        results[0].username.should.equal('foo');
-      });
-    });
-
-    it('should support a tagged sql query without `callee` but with `options`', function() {
+    it('should support a tagged sql query', function() {
       return sequelize.sync().then(function() {
         return User.create({
           username: 'foo'
@@ -85,11 +49,11 @@ describe('sequelize-sql-tag', function() {
           values: ['foo']
         }, {
           type: sequelize.QueryTypes.SELECT
-        })
+        });
       }).then(function(results) {
         results.should.have.length(1);
         results[0].username.should.equal('foo');
       });
     });
-  })
+  });
 });
