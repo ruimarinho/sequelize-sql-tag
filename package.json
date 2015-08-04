@@ -39,6 +39,6 @@
     "sqlite3": "^3.0.5"
   },
   "peerDependencies": {
-    "sequelize": ">= 2.0.0 < 3"
+    "sequelize": ">= 3.0.0 < 4"
   }
 }
