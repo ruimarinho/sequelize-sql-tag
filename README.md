@@ -1,6 +1,8 @@
 # sequelize-sql-tag
 
-A [sequelize](https://github.com/sequelize/sequelize) plugin for [sql-tag](https://www.npmjs.com/package/sql-tag), combinining the elegance of tagged sql query strings with the convenience and safety of `sequelize.query`.
+A backported [sequelize](https://github.com/sequelize/sequelize) (>=1.7.0 <2.0.4) plugin for [sql-tag](https://www.npmjs.com/package/sql-tag), combinining the elegance of tagged sql query strings with the convenience and safety of `sequelize.query`.
+
+Since version v2.0.4, sequelize supports the standard [sql-tag](https://www.npmjs.com/package/sql-tag) without requiring any patching.
 
 ## Status
 
@@ -12,8 +14,10 @@ A [sequelize](https://github.com/sequelize/sequelize) plugin for [sql-tag](https
 Install the package via `npm`:
 
 ```bash
-$ npm install sequelize-sql-tag
+$ npm install --save sequelize-sql-tag
 ```
+
+Sequelize is listed as a peer dependency. Note that starting from [npm 3](https://github.com/npm/npm/blob/master/CHANGELOG.md#peerdependencies), you must manually install peer dependencies.
 
 ## Usage
 
@@ -27,12 +31,12 @@ require('sequelize-sql-tag')(Sequelize);
 
 // Use expressions inside placeholders to build elegant
 // and readable queries.
-sequelize.query(sql`SELECT * FROM "Foo" WHERE id = ${ 1 * 2 }`);
+sequelize.query(sql`SELECT * FROM "Foo" WHERE id = ${1 * 2}`);
 
 // You can even use function calls inside expressions.
 var obj = { foo: 'bar' }
 
-sequelize.query(sql`UPDATE "Foo" SET biz = ${ JSON.stringify(obj) }`);
+sequelize.query(sql`UPDATE "Foo" SET biz = ${JSON.stringify(obj)}`);
 ```
 
 ## Tests
