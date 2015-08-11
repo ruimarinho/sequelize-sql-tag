@@ -1,6 +1,6 @@
 {
   "name": "sequelize-sql-tag",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A sequelize plugin for sql-tag",
   "license": "MIT",
   "author": {
