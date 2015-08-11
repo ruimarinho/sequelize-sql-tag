@@ -1,11 +1,20 @@
 {
   "name": "sequelize-sql-tag",
   "version": "0.0.1",
+  "description": "A sequelize plugin for sql-tag",
+  "license": "MIT",
+  "author": {
+    "name": "Rui Marinho",
+    "email": "rui.marinho@seegno.com",
+    "url": "https://github.com/ruimarinho"
+  },
+  "homepage": "https://github.com/seegno/sequelize-sql-tag",
+  "bugs": "https://github.com/seegno/sequelize-sql-tag/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/seegno/sequelize-sql-tag.git"
   },
-  "description": "A sequelize plugin for `sql-tag`",
+  "main": "./dist/index.js",
   "keywords": [
     "es6",
     "multiline",
@@ -18,27 +27,34 @@
     "tagged",
     "template"
   ],
-  "author": {
-    "name": "Rui Marinho",
-    "email": "rui.marinho@seegno.com",
-    "url": "https://github.com/ruimarinho"
+  "options": {
+    "mocha": "--compilers js:babel/register --require should test"
   },
-  "homepage": "https://github.com/seegno/sequelize-sql-tag",
-  "bugs": {
-    "url": "https://github.com/seegno/sequelize-sql-tag/issues"
-  },
-  "license": "MIT",
   "scripts": {
-    "changelog": "./node_modules/.bin/github-changes -o seegno -r sequelize-sql-tag -a --only-pulls --use-commit-body --title 'Changelog' --date-format '/ YYYY-MM-DD'",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha test/*_test.js --require should --reporter spec"
+    "build": "rm -rf dist/* && ./node_modules/.bin/babel src/ --loose --out-dir dist/",
+    "changelog": "github_changelog_generator --no-issues",
+    "cover": "./node_modules/.bin/babel-node node_modules/.bin/isparta cover --report html node_modules/.bin/_mocha -- $npm_package_options_mocha",
+    "lint": "eslint src test",
+    "prepublish": "npm test && npm run build",
+    "test": "./node_modules/.bin/mocha $npm_package_options_mocha"
   },
   "devDependencies": {
-    "github-changes": "0.0.16",
-    "mocha": "^2.1.0",
-    "should": "^5.0.1",
-    "sqlite3": "^3.0.5"
+    "babel": "^5.6.14",
+    "babel-eslint": "^3.1.23",
+    "eslint": "^0.24.1",
+    "eslint-plugin-babel": "^1.1.0",
+    "isparta": "^3.0.3",
+    "mocha": "^2.2.5",
+    "mocha": "^2.2.5",
+    "sequelize": "2.0.3",
+    "should": "^7.0.3",
+    "sqlite3": "^3.0.10"
   },
   "peerDependencies": {
-    "sequelize": ">= 2.0.0 < 3"
+    "sequelize": ">=1.7.0 <2.0.4"
+  },
+  "engines": {
+    "node": ">= 0.10",
+    "iojs": ">= 1.0.0"
   }
 }

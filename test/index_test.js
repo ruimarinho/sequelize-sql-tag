@@ -3,93 +3,132 @@
  * Test `sequelize-sql-tag`.
  */
 
-var Sequelize = require('sequelize');
+import Sequelize from 'sequelize';
+import tag from '../src';
 
-require('..')(Sequelize);
+tag(Sequelize);
 
-describe('sequelize-sql-tag', function() {
-  var sequelize;
-  var User;
+describe('sequelize-sql-tag', () => {
+  describe.skip('sequelize v1.7.x', () => {
+    let sequelize;
+    let User;
 
-  beforeEach(function() {
-    sequelize = new Sequelize('database', 'username', 'password', { dialect: 'sqlite', logging: false });
+    beforeEach(() => {
+      sequelize = new Sequelize('database', 'username', 'password', { dialect: 'sqlite', logging: false });
 
-    User = sequelize.define('User', {
-      username: Sequelize.STRING
+      User = sequelize.define('User', { username: Sequelize.STRING });
+    });
+
+    describe('normal sql queries', () => {
+      it('should continue supporting an sql `query` with `callee`, `options` and `replacements`', () => {
+        return sequelize.sync().then(() => {
+          return User.create({ username: 'foo' });
+        }).then(() => {
+          return sequelize.query('SELECT * FROM "Users" WHERE username = ?', User, { type: 'SELECT' }, ['foo']);
+        }).then((results) => {
+          results.should.have.length(1);
+          results[0].should.be.an.instanceOf(User.DAO);
+          results[0].username.should.equal('foo');
+        });
+      });
+    });
+
+    describe('tagged sql queries', () => {
+      it('should support a tagged sql query with `callee`', () => {
+        return sequelize.sync().then(() => {
+          return User.create({ username: 'foo' });
+        }).then(() => {
+          return sequelize.query({ query: 'SELECT * FROM "Users" WHERE username = ?', values: ['foo'] }, User, { type: 'SELECT' });
+        }).then((results) => {
+          results.should.have.length(1);
+          results[0].should.be.an.instanceOf(User.DAO);
+          results[0].username.should.equal('foo');
+        });
+      });
+
+      it('should support a tagged sql query without `callee` but with `options`', () => {
+        return sequelize.sync().then(() => {
+          return User.create({ username: 'foo' });
+        }).then(() => {
+          return sequelize.query({ query: 'SELECT * FROM "Users" WHERE username = ?', values: ['foo'] }, { type: 'SELECT', raw: true });
+        }).then((results) => {
+          results.should.have.length(1);
+          results[0].username.should.equal('foo');
+        });
+      });
     });
   });
 
-  describe('normal sql queries', function() {
-    it('should continue supporting an sql `query` with `callee` and `options`', function() {
-      return sequelize.sync().then(function() {
-        return User.create({
-          username: 'foo'
+  describe('sequelize v2.x', () => {
+    let sequelize;
+    let User;
+
+    beforeEach(() => {
+      sequelize = new Sequelize('database', 'username', 'password', { dialect: 'sqlite', logging: false });
+
+      User = sequelize.define('User', { username: Sequelize.STRING });
+    });
+
+    describe('normal sql queries', () => {
+      it('should continue supporting an sql `query` with `callee` and `options`', () => {
+        return sequelize.sync().then(() => {
+          return User.create({ username: 'foo' });
+        }).then(() => {
+          return sequelize.query('SELECT * FROM "Users" WHERE username = ?', User, { replacements: ['foo'], type: sequelize.QueryTypes.SELECT });
+        }).then((results) => {
+          results.should.have.length(1);
+          results[0].should.be.an.instanceOf(User.DAO);
+          results[0].username.should.equal('foo');
         });
-      }).then(function() {
-        return sequelize.query('SELECT * FROM "Users" WHERE username = ?', User, {
-          replacements: ['foo'],
-          type: sequelize.QueryTypes.SELECT
-        })
-      }).then(function(results) {
-        results.should.have.length(1);
-        results[0].should.be.an.instanceOf(User.DAO);
-        results[0].username.should.equal('foo');
+      });
+
+      it('should continue supporting an sql `query` without `callee` but with `options`', () => {
+        return sequelize.sync().then(() => {
+          return User.create({ username: 'foo' });
+        }).then(() => {
+          return sequelize.query('SELECT * FROM "Users" WHERE username = ?', { replacements: ['foo'], type: sequelize.QueryTypes.SELECT });
+        }).then((results) => {
+          results.should.have.length(1);
+          results[0].username.should.equal('foo');
+        });
       });
     });
 
-    it('should continue supporting an sql `query` without `callee` but with `options`', function() {
-      return sequelize.sync().then(function() {
-        return User.create({
-          username: 'foo'
+    describe('tagged sql queries', () => {
+      it('should support a tagged sql query with `callee`', () => {
+        return sequelize.sync().then(() => {
+          return User.create({ username: 'foo' });
+        }).then(() => {
+          return sequelize.query({ query: 'SELECT * FROM "Users" WHERE username = ?', values: ['foo'] }, User, { type: sequelize.QueryTypes.SELECT });
+        }).then((results) => {
+          results.should.have.length(1);
+          results[0].should.be.an.instanceOf(User.DAO);
+          results[0].username.should.equal('foo');
         });
-      }).then(function() {
-        return sequelize.query('SELECT * FROM "Users" WHERE username = ?', {
-          replacements: ['foo'],
-          type: sequelize.QueryTypes.SELECT
-        })
-      }).then(function(results) {
-        results.should.have.length(1);
-        results[0].username.should.equal('foo');
+      });
+
+      it('should support a tagged sql query without `callee` but with `options`', () => {
+        return sequelize.sync().then(() => {
+          return User.create({ username: 'foo' });
+        }).then(() => {
+          return sequelize.query({ query: 'SELECT * FROM "Users" WHERE username = ?', values: ['foo'] }, { type: sequelize.QueryTypes.SELECT });
+        }).then((results) => {
+          results.should.have.length(1);
+          results[0].username.should.equal('foo');
+        });
+      });
+
+      it('should support a tagged sql query with `callee` only', () => {
+        return sequelize.sync().then(() => {
+          return User.create({ username: 'foo' });
+        }).then(() => {
+          return sequelize.query({ query: 'SELECT * FROM "Users" WHERE username = ?', values: ['foo'] }, User);
+        }).then((results) => {
+          results.should.have.length(2);
+          results[0].should.have.length(1);
+          results[0][0].username.should.equal('foo');
+        });
       });
     });
   });
-
-  describe('tagged sql queries', function() {
-    it('should support a tagged sql query with `callee`', function() {
-      return sequelize.sync().then(function() {
-        return User.create({
-          username: 'foo'
-        });
-      }).then(function() {
-        return sequelize.query({
-          query: 'SELECT * FROM "Users" WHERE username = ?',
-          values: ['foo']
-        }, User, {
-          type: sequelize.QueryTypes.SELECT
-        })
-      }).then(function(results) {
-        results.should.have.length(1);
-        results[0].should.be.an.instanceOf(User.DAO);
-        results[0].username.should.equal('foo');
-      });
-    });
-
-    it('should support a tagged sql query without `callee` but with `options`', function() {
-      return sequelize.sync().then(function() {
-        return User.create({
-          username: 'foo'
-        });
-      }).then(function() {
-        return sequelize.query({
-          query: 'SELECT * FROM "Users" WHERE username = ?',
-          values: ['foo']
-        }, {
-          type: sequelize.QueryTypes.SELECT
-        })
-      }).then(function(results) {
-        results.should.have.length(1);
-        results[0].username.should.equal('foo');
-      });
-    });
-  })
 });
