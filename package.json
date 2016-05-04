@@ -2,21 +2,9 @@
   "name": "sequelize-sql-tag",
   "version": "1.0.0",
   "description": "A sequelize plugin for sql-tag",
-  "license": "MIT",
-  "author": {
-    "name": "Rui Marinho",
-    "email": "rui.marinho@seegno.com",
-    "url": "https://github.com/ruimarinho"
-  },
-  "homepage": "https://github.com/seegno/sequelize-sql-tag",
-  "bugs": "https://github.com/seegno/sequelize-sql-tag/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/seegno/sequelize-sql-tag.git"
-  },
-  "main": "./dist/index.js",
   "keywords": [
     "es6",
+    "es2015",
     "multiline",
     "plugin",
     "sequelize",
@@ -27,34 +15,56 @@
     "tagged",
     "template"
   ],
-  "options": {
-    "mocha": "--compilers js:babel/register --require should test"
+  "homepage": "https://github.com/seegno/sequelize-sql-tag",
+  "bugs": "https://github.com/seegno/sequelize-sql-tag/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Rui Marinho",
+    "email": "rui.marinho@seegno.com",
+    "url": "https://github.com/ruimarinho"
+  },
+  "main": "dist/src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seegno/sequelize-sql-tag.git"
   },
   "scripts": {
-    "build": "rm -rf dist/* && ./node_modules/.bin/babel src/ --loose --out-dir dist/",
-    "changelog": "github_changelog_generator --no-issues",
-    "cover": "./node_modules/.bin/babel-node node_modules/.bin/isparta cover --report html node_modules/.bin/_mocha -- $npm_package_options_mocha",
+    "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=v$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
     "lint": "eslint src test",
-    "prepublish": "npm test && npm run build",
-    "test": "./node_modules/.bin/mocha $npm_package_options_mocha"
+    "prepublish": "npm run transpile",
+    "test": "NODE_ENV=test mocha $npm_package_options_mocha",
+    "testdocker": "docker-compose run --rm sut",
+    "transpile": "rm -rf dist/* && babel src --out-dir dist/src && cp package.json dist/",
+    "version": "npm run changelog --future-release=$npm_package_version && npm run transpile && git add -A CHANGELOG.md dist"
+  },
+  "dependencies": {
+    "sql-tag": "^1.0.0"
   },
   "devDependencies": {
-    "babel": "^5.6.14",
-    "babel-eslint": "^3.1.23",
-    "eslint": "^0.24.1",
-    "eslint-plugin-babel": "^1.1.0",
-    "isparta": "^3.0.3",
-    "mocha": "^2.2.5",
-    "mocha": "^2.2.5",
-    "sequelize": "2.0.3",
-    "should": "^7.0.3",
+    "babel-cli": "^6.8.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015-node4": "^2.1.0",
+    "babel-register": "^6.8.0",
+    "eslint": "^3.3.0",
+    "eslint-config-seegno": "^6.0.0",
+    "mocha": "^3.0.2",
+    "mysql": "^2.11.1",
+    "pg": "^6.1.0",
+    "pre-commit": "^1.1.2",
+    "sequelize": "3.14.0",
+    "should": "^11.0.0",
     "sqlite3": "^3.0.10"
   },
   "peerDependencies": {
-    "sequelize": ">=1.7.0 <2.0.4"
+    "sequelize": ">=3.14.0"
   },
   "engines": {
-    "node": ">= 0.10",
-    "iojs": ">= 1.0.0"
-  }
+    "node": ">=4"
+  },
+  "options": {
+    "mocha": "--compilers js:babel-register --recursive --require should"
+  },
+  "pre-commit": [
+    "lint"
+  ]
 }
