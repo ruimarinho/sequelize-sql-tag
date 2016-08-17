@@ -19,7 +19,7 @@ npm install --save sequelize-sql-tag
 
 Due to the constant changes in `sequelize`, the usage of this module varies significantly.
 
-Since versions `>=3.14.0` sequelize supports *parameterized queries*, i.e., queries that can be sent to the server separately from the arguments, which is a recommended form of protection against SQL injections. This requires installing [sequelize-sql-tag@2.0.0](https://github.com/seegno/sql-tag/tree/v2.0.0) only as exemplified below.
+Since versions `>=3.14.0` sequelize supports *parameterized queries*, i.e., queries that can be sent to the server separately from the arguments, which is a recommended form of protection against SQL injections. This requires installing [sequelize-sql-tag@2.0.0](https://github.com/seegno/sequelize-sql-tag/tree/v2.0.0) only as exemplified below.
 
 From versions `>=2.0.4 <3.14.0`, sequelize only supports text queries, i.e., queries that are sent to the server in plain text and escaped by the client (or framework). Version [sql-tag@0.0.1](https://github.com/seegno/sql-tag/tree/v0.0.1) outputs a format that is directly compatible with sequelize without requiring any additional patching.
 
