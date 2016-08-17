@@ -54,5 +54,5 @@ MIT
 
 [npm-image]: https://img.shields.io/npm/v/sequelize-sql-tag.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/sequelize-sql-tag
-[travis-image]: https://img.shields.io/travis/seegno/sequelize-sql-tag/v1.0.0.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/seegno/sequelize-sql-tag/v2.0.0.svg?style=flat-square
 [travis-url]: https://travis-ci.org/seegno/sequelize-sql-tag
