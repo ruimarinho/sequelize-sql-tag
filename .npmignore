@@ -1,0 +1,7 @@
+.babelrc
+.eslintrc.yml
+.gitignore
+.travis.yml
+/src
+/test
+docker-compose.yml

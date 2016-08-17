@@ -1,0 +1,15 @@
+mysql:
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+
+postgres:
+  image: postgres
+
+sut:
+  image: seegno/node:4-test
+  volumes:
+    - .:/app
+  links:
+    - mysql
+    - postgres
