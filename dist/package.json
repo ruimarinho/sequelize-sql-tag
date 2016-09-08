@@ -51,12 +51,12 @@
     "mysql": "^2.11.1",
     "pg": "^6.1.0",
     "pre-commit": "^1.1.2",
-    "sequelize": "3.14.0",
+    "sequelize": "4.0.0-1",
     "should": "^11.0.0",
     "sqlite3": "^3.0.10"
   },
   "peerDependencies": {
-    "sequelize": ">=3.14.0"
+    "sequelize": ">=4.0.0-1"
   },
   "engines": {
     "node": ">=4"
