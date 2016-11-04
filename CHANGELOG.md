@@ -1,6 +1,13 @@
 # Changelog
 
-## [v2.0.0](https://github.com/seegno/sequelize-sql-tag/tree/v2.0.0) (2016-08-18)
+## [v2.0.1](https://github.com/seegno/sequelize-sql-tag/tree/v2.0.1) (2016-11-04)
+[Full Changelog](https://github.com/seegno/sequelize-sql-tag/compare/v2.0.0...v2.0.1)
+
+**Merged pull requests:**
+
+- Update sql-tag@1.0.1 [\#8](https://github.com/seegno/sequelize-sql-tag/pull/8) ([ruimarinho](https://github.com/ruimarinho))
+
+## [v2.0.0](https://github.com/seegno/sequelize-sql-tag/tree/v2.0.0) (2016-08-17)
 [Full Changelog](https://github.com/seegno/sequelize-sql-tag/compare/v1.0.0...v2.0.0)
 
 **Merged pull requests:**
