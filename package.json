@@ -38,7 +38,7 @@
     "version": "npm run changelog --future-release=$npm_package_version && npm run transpile && git add -A CHANGELOG.md dist"
   },
   "dependencies": {
-    "sql-tag": "^1.0.0"
+    "sql-tag": "^1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",
