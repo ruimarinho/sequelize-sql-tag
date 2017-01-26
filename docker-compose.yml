@@ -7,7 +7,16 @@ postgres:
   image: postgres
 
 sut:
-  image: seegno/node:4-test
+  image: node:4-alpine
+  command: >
+    sh -c '
+      apk add --no-cache make python g++ \
+      && npm config set loglevel error \
+      && npm i npm@latest -g \
+      && cd /app \
+      && npm i \
+      && npm i sequelize@${SEQUELIZE_VERSION} \
+      && npm t'
   volumes:
     - .:/app
   links:
