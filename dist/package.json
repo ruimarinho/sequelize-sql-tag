@@ -1,6 +1,6 @@
 {
   "name": "sequelize-sql-tag",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A sequelize plugin for sql-tag",
   "keywords": [
     "es6",
@@ -49,6 +49,7 @@
     "eslint-config-seegno": "^6.0.0",
     "mocha": "^3.0.2",
     "mysql": "^2.11.1",
+    "mysql2": "^1.1.2",
     "pg": "^6.1.0",
     "pre-commit": "^1.1.2",
     "sequelize": "3.14.0",
@@ -56,7 +57,7 @@
     "sqlite3": "^3.0.10"
   },
   "peerDependencies": {
-    "sequelize": ">=3.14.0"
+    "sequelize": ">=3.14.0 || >=4.0.0-0"
   },
   "engines": {
     "node": ">=4"

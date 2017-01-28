@@ -18,8 +18,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function sqltag() {
   var _sql = _sqlTag2.default.apply(undefined, arguments);
 
-  const bind = _sql.values;
-  const query = _sql.text;
+  const bind = _sql.values,
+        query = _sql.text;
 
 
   return { bind: bind, query: query };
