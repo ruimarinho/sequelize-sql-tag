@@ -59,6 +59,11 @@
   "peerDependencies": {
     "sequelize": ">= 3.35.1 || >= 4.44.4 || >=6.29.0"
   },
+  "peerDependenciesMeta": {
+    "sequelize": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=4"
   },
