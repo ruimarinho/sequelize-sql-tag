@@ -57,7 +57,7 @@
     "sqlite3": "^3.0.10"
   },
   "peerDependencies": {
-    "sequelize": ">=3.14.0 || >=4.0.0-0"
+    "sequelize": ">= 3.35.1 || >= 4.44.4 || >=6.29.0"
   },
   "engines": {
     "node": ">=4"
